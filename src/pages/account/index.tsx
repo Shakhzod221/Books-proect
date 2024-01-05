@@ -1,8 +1,11 @@
-import { Button, Form, Image, Input, Tabs } from 'antd';
+import { Button, Form, Image, Input, Tabs, message } from 'antd';
 import type { TabsProps } from 'antd';
 import useUsersApi from '../../service/api/users';
 import { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
+import { useDispatch, useSelector } from 'react-redux';
+import { andLoading, startLoading } from '../../store/loader';
+import LoaderUI from '../../components/loader';
 
 type FieldType = {
   email?: string;
@@ -17,16 +20,38 @@ const Account = () => {
 
   const {getOneUserById} = useUsersApi();
   const [me, setMe]: any = useState({});
+  const dispatch = useDispatch();
+  const {isLoading} = useSelector((state: any) => state);
+  console.log(isLoading);
+  
 
   useEffect(() => {
+    dispatch(startLoading(true))
     getOneUserById(localStorage.getItem("id"))
-    .then((data) => setMe(data.data)
-    )
+    .then((data) => {
+      data && dispatch(andLoading(false));
+      setMe(data.data)
+    })
+    .catch((err: any) => {
+      dispatch(andLoading(false));
+      message.error(err)
+    })
   }, []);
 
-  const onFinish = (values: any) => {
-    console.log(values);
-  }
+  // const formData = new FormData();
+
+  // const onFinish = (values: any) => {
+
+  //   for (const key in values) {
+  //     formData.append(key, values[key]);
+      
+  //   }
+
+  //   // updateOneUserById({...values, image: null}, 
+  //   //   localStorage.getItem("id")).then((data) => 
+  //   //     console.log(data?.data)
+  //   // )
+  // }
 
   const items: TabsProps['items'] = [
     {
@@ -65,7 +90,7 @@ const Account = () => {
         className="w-full"
         name="basic"
         initialValues={{ remember: true }}
-        onFinish={onFinish}
+        // onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
   >
@@ -164,6 +189,7 @@ const Account = () => {
 
   return (
     <div>
+      {isLoading ? <LoaderUI/> :
       <div className="w-full max-w-[900px] mx-auto mt-[50px]">
         
         <div>
@@ -173,7 +199,7 @@ const Account = () => {
           items={items} 
           onChange={onChange} />
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
