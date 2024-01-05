@@ -44,3 +44,16 @@
     width: fit-content !important;
     height: fit-content !important;
 }
+
+.banner-slide{
+    background-image: url("./assets/images/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+:where(.css-dev-only-do-not-override-pttt7q).ant-carousel .slick-dots {
+    justify-content: start !important;
+    padding-left: 86px;
+    padding-bottom: 65px;
+}
