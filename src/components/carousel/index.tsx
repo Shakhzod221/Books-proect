@@ -1,24 +1,30 @@
 import { Carousel } from "antd"
+import { useTranslation } from "react-i18next"
 
 
 const CarouselUI = () => {
+  const {t} = useTranslation()
   return (
     <Carousel autoplay={true} autoplaySpeed={4000}>
           <div className="banner-slide w-full h-[346px] px-[86px] py-[45px]">
-            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[400px] leading-[65px]">
-              Temuriylar davri adabiyoti</h3>
+            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[500px] leading-[65px]">
+              {t("heroSection.slide1")}
+              </h3>
           </div>
           <div className="banner-slide w-full h-[346px] px-[86px] py-[45px]">
-            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[400px] leading-[65px]">
-              Kuch adolatdadur!</h3>
+            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[500px] leading-[65px]">
+            {t("heroSection.slide2")}
+              </h3>
           </div>
           <div className="banner-slide w-full h-[346px] px-[86px] py-[45px]">
-            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[400px] leading-[65px]">
-              Temuriylar davri adabiyoti</h3>
+            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[500px] leading-[65px]">
+            {t("heroSection.slide3")}
+              </h3>
           </div>
           <div className="banner-slide w-full h-[346px] px-[86px] py-[45px]">
-            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[400px] leading-[65px]">
-              Kuch adolatdadur!</h3>
+            <h3 className="text-[63px] font-rotterburg text-[#C9AC8C] w-full max-w-[500px] leading-[65px]">
+            {t("heroSection.slide4")}
+              </h3>
           </div>
         </Carousel>
   )

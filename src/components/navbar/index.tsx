@@ -1,18 +1,25 @@
+import { useState } from 'react';
 import { 
   DownOutlined, 
   UserOutlined, 
   LogoutOutlined, 
-  SettingOutlined 
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Avatar, Button, Dropdown, Popconfirm, message } from 'antd';
+import { Avatar, Button, Dropdown, Popconfirm, Segmented, message } from 'antd';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import lng from "../../assets/icons/lng.svg";
+import moonIcon from "../../assets/icons/moon.svg";
+import sunIcon from "../../assets/icons/sun.svg";
+import Modal from 'antd/es/modal/Modal';
+import i18n from '../../i18n';
+import { t } from 'i18next';
+
 
 const Navbar = () => {
 
+  const [darkMode, setDarkMode]: any = useState("light");
+  const [openModal, setOpenModal]: any = useState(false)
   const navigate = useNavigate();
-
 
   const confirm = async () => {
     localStorage.clear();
@@ -29,19 +36,10 @@ const Navbar = () => {
       to={`/account/${localStorage.getItem("id")}`}
       className='flex items-center gap-[10px] px-[8px] py-[4px]'>
       <UserOutlined/>
-      <p className='text-[15px] p-0'>Profil</p>
+      <p className='text-[15px] p-0'>{t("navbarDrop.text1")}</p>
       </Link> 
       ,
       key: '0',
-    },
-    {
-      label:
-       <div  
-       className='flex items-center gap-[10px] px-[8px] py-[4px]'>
-      <SettingOutlined/>
-      <p className='text-[15px] p-0'>Sozlamalar</p>
-    </div>,
-      key: '1',
     },
     {
       label:(
@@ -54,16 +52,52 @@ const Navbar = () => {
     >
        <div className='flex items-center gap-[10px] px-[8px] py-[4px]'>
       <LogoutOutlined/>
-      <p className='text-[15px] p-0'>Chiqish</p>
+      <p className='text-[15px] p-0'>{t("navbarDrop.text2")}</p>
     </div>
     </Popconfirm>
     ),
-      key: '2',
+      key: '1',
     },
    
   ];
 
   return (
+    <>
+    <Modal 
+      okText="O'zgartirish"
+      cancelText="Bekor qilish"
+      onCancel={() => setOpenModal(false)}
+      onOk={() => setOpenModal(false)}
+      open={openModal}
+      title="Tilni o'zgartirish">
+      <Segmented
+            className='mb-[30px] mt-[20px]'
+            block
+            size='large'
+            options={[
+              {
+              label: (
+                <div style={{ padding: 4 }}>
+                  <div>O'zbekcha</div>
+                </div>
+              ),
+              value: 'uz',
+            },
+              {
+              label: (
+                <div style={{ padding: 4 }}>
+                  <div>English</div>
+                </div>
+              ),
+              value: 'en',
+            },
+            ]}
+            onChange={(e: any) => {
+              i18n.changeLanguage(e)
+            }}
+             />
+    </Modal>
+    
     <div className="container-box flex items-center justify-between">
       <h1
         onClick={() => navigate("/")}
@@ -75,25 +109,25 @@ const Navbar = () => {
         to={"/"}
         className='dark:text-white py-[28px] font-crimson font-semibold text-[19px] border-b-[3px] border-t-[3px] border-t-transparent border-b-transparent hover:border-b-[#C9AC8C] duration-150 cursor-pointer'
         >
-          Bosh sahifa
+          {t("navbar.text1")}
         </NavLink>
         <NavLink 
         to={"/authors"}
         className='dark:text-white py-[28px] font-crimson font-semibold text-[19px] border-b-[3px] border-t-[3px] border-t-transparent border-b-transparent hover:border-b-[#C9AC8C] duration-150 cursor-pointer'
         >
-          Adiblar
+          {t("navbar.text2")}
         </NavLink>
         <NavLink 
         to={"/books"}
         className='dark:text-white py-[28px] font-crimson font-semibold text-[19px] border-b-[3px] border-t-[3px] border-t-transparent border-b-transparent hover:border-b-[#C9AC8C] duration-150 cursor-pointer'
         >
-          Barcha kitoblar
+          {t("navbar.text3")}
         </NavLink>
         <NavLink 
         to={"/maqolalar"}
         className='dark:text-white py-[28px] font-crimson font-semibold text-[19px] border-b-[3px] border-t-[3px] border-t-transparent border-b-transparent hover:border-b-[#C9AC8C] duration-150 cursor-pointer'
         >
-          Maqolalar
+          {t("navbar.text4")}
         </NavLink>
         <NavLink 
         to={"/kommentariyalar"}
@@ -102,12 +136,34 @@ const Navbar = () => {
           
         </NavLink>
       </div>
-      <div>
+      <div className='flex items-center gap-[20px]'>
         <img 
-          className='w-[40px] p-[5px] rounded-[6px] hover:bg-[rgba(200,172,140,0.5)] cursor-pointer' 
+          onClick={() => setOpenModal(true)}
+          className='w-[30px] h-[30px] cursor-pointer' 
           src={lng} 
           alt=""
         />
+        {darkMode === "dark" ? (
+          <img 
+            onClick={() => {
+              setDarkMode("light")
+              document.documentElement.classList.remove("dark")
+            }}
+            className='w-[30px] h-[30px] cursor-pointer' 
+            src={sunIcon} 
+            alt="" />
+        ) : (
+          <img 
+          onClick={() => {
+            setDarkMode("dark")
+            document.documentElement.classList.add("dark")
+
+          }}
+            className='w-[30px] h-[30px] cursor-pointer' 
+            src={moonIcon} 
+            alt="" />
+        )}
+
       {localStorage.getItem("token") ? (
         <div>
         <Dropdown 
@@ -140,6 +196,7 @@ const Navbar = () => {
       )}
       </div>
     </div>
+    </>
   )
 }
 
