@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/navbar";
+import ModalUI from "../components/modal";
 
 
 
@@ -14,6 +15,7 @@ const Layout = () => {
         </header>
 
         <main>
+          <ModalUI/>
           <Outlet/>
         </main>
     </div>

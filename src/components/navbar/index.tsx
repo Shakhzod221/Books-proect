@@ -7,10 +7,12 @@ import {
 import type { MenuProps } from 'antd';
 import { Avatar, Button, Dropdown, Popconfirm, message } from 'antd';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import lng from "../../assets/icons/lng.svg";
 
 const Navbar = () => {
 
   const navigate = useNavigate();
+
 
   const confirm = async () => {
     localStorage.clear();
@@ -24,7 +26,7 @@ const Navbar = () => {
     {
       label: 
       <Link 
-      to={'/account'}
+      to={`/account/${localStorage.getItem("id")}`}
       className='flex items-center gap-[10px] px-[8px] py-[4px]'>
       <UserOutlined/>
       <p className='text-[15px] p-0'>Profil</p>
@@ -34,12 +36,11 @@ const Navbar = () => {
     },
     {
       label:
-       <Link 
-       to={''} 
+       <div  
        className='flex items-center gap-[10px] px-[8px] py-[4px]'>
       <SettingOutlined/>
       <p className='text-[15px] p-0'>Sozlamalar</p>
-    </Link>,
+    </div>,
       key: '1',
     },
     {
@@ -64,7 +65,11 @@ const Navbar = () => {
 
   return (
     <div className="container-box flex items-center justify-between">
-      <h1 className='text-[26px] font-semibold select-none  font-rotterburg text-[#C9AC8C]'>Badiiyat</h1>
+      <h1
+        onClick={() => navigate("/")}
+        className='text-[26px] font-semibold select-none  font-rotterburg text-[#C9AC8C] cursor-pointer'>
+        Badiiyat
+        </h1>
       <div className='flex items-center gap-[43px]'>
         <NavLink 
         to={"/"}
@@ -97,6 +102,12 @@ const Navbar = () => {
           
         </NavLink>
       </div>
+      <div>
+        <img 
+          className='w-[40px] p-[5px] rounded-[6px] hover:bg-[rgba(200,172,140,0.5)] cursor-pointer' 
+          src={lng} 
+          alt=""
+        />
       {localStorage.getItem("token") ? (
         <div>
         <Dropdown 
@@ -127,6 +138,7 @@ const Navbar = () => {
             </Button>
         </div>
       )}
+      </div>
     </div>
   )
 }

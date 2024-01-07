@@ -32,7 +32,7 @@ const SignIn = () => {
         localStorage.setItem("first_name", data?.data?.user?.first_name)
         localStorage.setItem("last_name", data?.data?.user?.last_name)
         localStorage.setItem("id", data?.data?.user?.id)
-        return navigate("/");
+        return localStorage.getItem("id") && navigate("/");
       }
     }).catch((err: any) => {
       if(err) {
@@ -41,8 +41,6 @@ const SignIn = () => {
       }
     })
   };
-  
- 
 
   return (
     <div className="flex items-center h-screen w-full">

@@ -6,6 +6,7 @@ import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux';
 import { andLoading, startLoading } from '../../store/loader';
 import LoaderUI from '../../components/loader';
+import { useParams } from 'react-router-dom';
 
 type FieldType = {
   email?: string;
@@ -22,11 +23,12 @@ const Account = () => {
   const [me, setMe]: any = useState({});
   const dispatch = useDispatch();
   const {isLoading} = useSelector((state: any) => state);
-  console.log(isLoading);
+  const {id} = useParams();
+  
   
 
   useEffect(() => {
-    dispatch(startLoading(true))
+    dispatch(startLoading(true));
     getOneUserById(localStorage.getItem("id"))
     .then((data) => {
       data && dispatch(andLoading(false));
@@ -36,27 +38,12 @@ const Account = () => {
       dispatch(andLoading(false));
       message.error(err)
     })
-  }, []);
-
-  // const formData = new FormData();
-
-  // const onFinish = (values: any) => {
-
-  //   for (const key in values) {
-  //     formData.append(key, values[key]);
-      
-  //   }
-
-  //   // updateOneUserById({...values, image: null}, 
-  //   //   localStorage.getItem("id")).then((data) => 
-  //   //     console.log(data?.data)
-  //   // )
-  // }
+  }, [id]);
 
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: 'Profilim',
+      label: me?.id === Number(id)? 'Profilim' : "Profil",
       children: (
         <div className="flex items-center gap-[30px] bg-slate-100 py-4 px-4 rounded-[10px]">
           <div 
@@ -80,9 +67,9 @@ const Account = () => {
     )
     },
     {
-      key: '2',
-      label: "Sozlamalar",
-      children: 
+      key: me?.id === Number(id)? '2' : "",
+      label: me?.id === Number(id)? "Sozlamalar" : "",
+      children: me?.id === Number(id) && (
       <div>
         <div className='flex gap-5 flex-col'>
           <h1 className='text-[18px] font-semibold text-red-400'>* Ma'lumotlarni o'zgartirib saqlang</h1>
@@ -90,7 +77,6 @@ const Account = () => {
         className="w-full"
         name="basic"
         initialValues={{ remember: true }}
-        // onFinish={onFinish}
         autoComplete="off"
         layout="vertical"
   >
@@ -179,7 +165,7 @@ const Account = () => {
     </Form.Item>
   </Form>
         </div>
-      </div>,
+      </div>),
     },
   ];
 

@@ -3,9 +3,7 @@ import SearchBox from "../../components/search-box";
 
 
 const Home = () => {
-
   
-
   return (
     <div className="container-box relative">
       <div className="mt-[54px] rounded-[21px] overflow-hidden">
