@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import useCategoriesApi from "../../service/api/category"
+import BookCard from "../card";
 
 
 
@@ -17,7 +18,7 @@ const Tabs = () => {
     
 
   return (
-    <div className="mb-[100px]">
+    <div className="mb-[100px] pb-[100px]">
        <div className="mt-[150px] flex items-center justify-center">
          <div className="mb-4">
           <ul 
@@ -54,8 +55,17 @@ const Tabs = () => {
       <div>
         {tabs
             .find((category: any) => category?.name === activeTab)
-            ?.book?.map((kitob: any) => (
-            <p>{kitob?.title}</p>
+            ?.book?.map((kitob: any, index: number) => (
+            <BookCard 
+              key={index} 
+              price={kitob?.price} 
+              book_cover={kitob?.book_cover}
+              title={kitob?.title}
+              pages={kitob?.pages}
+              description={kitob?.description}
+              year={kitob?.year}
+              name={`${kitob?.author?.first_name} ${kitob?.author?.last_name}` }
+              />
             ))}
         </div>
     </div>

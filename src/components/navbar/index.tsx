@@ -5,7 +5,7 @@ import {
   LogoutOutlined, 
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Avatar, Button, Dropdown, Popconfirm, Segmented, message } from 'antd';
+import { Avatar, Dropdown, Popconfirm, Segmented, message } from 'antd';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import lng from "../../assets/icons/lng.svg";
 import moonIcon from "../../assets/icons/moon.svg";
@@ -164,7 +164,6 @@ const Navbar = () => {
             alt="" />
         )}
 
-      {localStorage.getItem("token") ? (
         <div>
         <Dropdown 
         menu={{ items }} 
@@ -184,16 +183,6 @@ const Navbar = () => {
          </div>
        </Dropdown>
      </div>
-      ) : (
-        <div className='flex items-center gap-[10px]'>
-          <Button onClick={() => navigate("sign-in")}>
-            Kirish
-            </Button>
-          <Button onClick={() => navigate("sign-up")} type='primary'>
-            Registratsiya
-            </Button>
-        </div>
-      )}
       </div>
     </div>
     </>

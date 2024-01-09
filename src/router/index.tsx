@@ -7,6 +7,7 @@ import Account from "../pages/account";
 import SignIn from "../pages/auth/sign-in";
 import SignUp from "../pages/auth/sign-up";
 import Generic from "../components/generic";
+import Authors from "../pages/authors";
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
                 element: <AuthorDetails/>,
             },
             {
-                path: "/book-details",
+                path: "/book-details/:id",
                 element: <BookDetails/>,
             },
             {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/authors",
-                element: <Generic/>,
+                element: <Authors/>,
             },
             {
                 path: "/books",
