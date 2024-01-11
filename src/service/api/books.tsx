@@ -1,4 +1,4 @@
-import api from "../axios"
+import api from "../axios";
 
 const UseBooksApi = () => {
   const config = {
@@ -7,10 +7,10 @@ const UseBooksApi = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
+  const getAllBooks = async () => api.get("/book", config)
+  const getOneBookById = async (id: any) => api.get(`/book/${id}`, config);
 
-  const getOneBookById = async (id: any) => api.get(`/books/${id}`, config);
-
-  return{ getOneBookById };
+  return{ getOneBookById, getAllBooks };
 }
 
-export default UseBooksApi
+export default UseBooksApi;
