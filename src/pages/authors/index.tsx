@@ -35,8 +35,9 @@ const Authors = () => {
       </div>
       <div className="flex flex-wrap align-center justify-center gap-[40px] mt-[50px]">
         {data.length > 0 ? (
-          data?.map((author:any) =>(
+          data?.map((author:any, index: number) =>(
             <AuthorCard 
+              key={index}
               id={author?.id}
               first_name={author?.first_name}
               last_name={author?.last_name}

@@ -45,7 +45,7 @@ const BookDetails = () => {
       <div>
     <div className="pt-[57px] w-full flex items-start gap-[50px]">
       <div className="w-[520px] object-cover rounded-lg overflow-hidden">
-        {oneBook?.book_cover?.lengh ? (
+        {oneBook?.book_cover?.length ? (
           <img 
             className="w-full h-full" 
             src={`https://literature-18wr.onrender.com/api/image/${oneBook?.book_cover}`} 
@@ -93,7 +93,9 @@ const BookDetails = () => {
 
     <div className="flex items-center justify-between mt-[100px] mb-[20px]">
       <h2 className="text-[#c9ac8c] font-crimson text-[25px]">Sizga yoqishi mumkin →</h2>
-      <p onClick={() => navigate("/books")} className="cursor-pointer hover:text-[#c9ac8c] font-crimson text-[20px] hover:underline duration-100">Barchasini ko'rish</p>
+      <p onClick={() => navigate("/books")} className="cursor-pointer hover:text-[#c9ac8c] font-crimson text-[20px] hover:underline duration-100">
+        Barchasini ko'rish
+        </p>
     </div>
 
     <div className="flex items-start flex-wrap gap-[40px] mb-[50px]">
